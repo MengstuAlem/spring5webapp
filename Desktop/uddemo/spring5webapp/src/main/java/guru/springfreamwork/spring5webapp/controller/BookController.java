@@ -1,25 +1,26 @@
 package guru.springfreamwork.spring5webapp.controller;
 
-import guru.springfreamwork.spring5webapp.entity.Book;
-import guru.springfreamwork.spring5webapp.repositories.BookRepository;
+
 import guru.springfreamwork.spring5webapp.service.BookService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 public class BookController {
-    BookRepository bookRepository;
+    private BookService bookService;
    @Autowired
-    public BookController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @RequestMapping("/books")
     public String getBooks(Model model){
-        model.addAttribute ("books",bookRepository.findAll ());
+        model.addAttribute ("books",bookService.getBook ());
         return "books";
+
     }
 
 }
