@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
@@ -63,6 +64,19 @@ class BookControllerTest {
         mockMvc.perform(get("/books"))
         .andExpect (status().isOk())
         .andExpect (view().name("books"));
+    }
+
+    @Test
+
+    public void getBook() throws Exception {
+        Book book = new Book ("test","234");
+        book.setId (1l);
+        when (bookService.getSingleBook (1L)).thenReturn (java.util.Optional.ofNullable (book));
+        ArgumentCaptor<Optional<Book>> bookArgumentCaptor = ArgumentCaptor.forClass (Optional.class);
+        bookController.getBook(model,1l);
+        verify (bookService,times (1)).getSingleBook (1l);
+        verify (model,times (1)).addAttribute (eq ("book"),bookArgumentCaptor.capture ());
+        assertEquals ("test",bookArgumentCaptor.getValue ().get ().getTitle ());
     }
 
 }

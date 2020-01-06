@@ -13,6 +13,7 @@
 
 <div class="container-fluid" style="margin-top: 2px">
 
+
     <div class="row">
         <div class="col-md-6  offset-md-3">
 
@@ -30,9 +31,15 @@
                            </tr>
 
                            <tr th:each="book : ${books}">
-                               <td th:text="${book.id}">123</td>
+                               <td th:text="${book.getId()}">123</td>
                                <td th:text="${book.title}">spring in action </td>
                                <td th:text="${book.publisher.name}">wrox</td>
+                               <td th:each=" author : ${book.getAuthors()}">
+                                   <p th:text="${author.getFirstName()}">p</p>
+                                   tr</td>
+
+
+                               <td ><a href="#" th:href="@{'book/show/' +${book.id}}">view</a></td>
                            </tr>
                        </table>
 

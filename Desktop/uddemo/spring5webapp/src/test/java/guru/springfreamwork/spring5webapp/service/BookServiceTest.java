@@ -47,18 +47,19 @@ class BookServiceTest {
         List<Book> bookList = new ArrayList <> ();
         bookList.add (book);
         bookList.add (book1);
-        when (bookService.getBook ()).thenReturn (bookList);
+        when (bookRepository.findAll ()).thenReturn (bookList);
         assertEquals ("MY_BOOK",bookService.getBook ().get (1).getTitle ());
        verify (bookRepository,times (1)).findAll ();
 
 
     }
     @Test
-    public void getOneBook(){
+    public void getOneBook() throws Exception {
         Book book = new Book ("MY_BOOK","123");
-        when (bookService.getSingleBook(1l)).thenReturn (java.util.Optional.ofNullable (book));
+        book.setId (1L);
+        when (bookRepository.findById (1l)).thenReturn (java.util.Optional.ofNullable (book));
         assertEquals ("MY_BOOK",bookService.getSingleBook (1l).get ().getTitle ());
-        verify (bookRepository,times(1)).findById (1l);
+        verify (bookRepository,times(2)).findById (1l);
     }
 
 

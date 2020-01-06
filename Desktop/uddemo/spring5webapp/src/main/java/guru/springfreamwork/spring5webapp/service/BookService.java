@@ -20,11 +20,12 @@ public class BookService {
         return  bookRepository.findAll ();
     }
 
-    public BookRepository getBookRepository() {
-        return bookRepository;
-    }
 
-    public Optional <Book> getSingleBook(Long id) {
+
+    public Optional <Book> getSingleBook(Long id) throws Exception {
+    if (!bookRepository.findById (id).isPresent ()){
+         throw new Exception ("book not found");
+    }
     return bookRepository.findById (id);
 
     }
