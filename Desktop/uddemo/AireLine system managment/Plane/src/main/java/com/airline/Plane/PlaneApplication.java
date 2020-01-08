@@ -24,6 +24,7 @@ public class PlaneApplication {
 		SpringApplication.run(PlaneApplication.class, args);
 	}
 //String owner,PlaneModel planeModel,Set<Seat> seats,String notes
+
 	@Bean
 	CommandLineRunner demo(PlaneRepository planeRepository){
 		return args -> {
@@ -38,6 +39,9 @@ public class PlaneApplication {
 
 		};
 
+
 	}
+
+
 
 }
